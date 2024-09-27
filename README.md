@@ -2,7 +2,10 @@
 
 1. Strategy, Design, Plan, and Execution:
    •	Define an appropriate scope for functional testing of a selected API (of your choice).
-   The subject of testing will be to check the correct operation of the application enabling the booking of cinema tickets.
+    The subject of testing will be to check the correct operation of the application enabling the booking of cinema tickets.
+   They are based on Test-Driven Development (TDD) methodology that emphasizes writing tests before writing the actual code. 
+   And since I don't have a working application responsible for booking tickets, I can't present a report on the tests performed. 
+   The assumption consistent with TDD is that it will be possible after refactoring the code after the developers have submitted the application code.
 
    • Scope of Functional Testing
    The scope should cover the following key functionalities:
