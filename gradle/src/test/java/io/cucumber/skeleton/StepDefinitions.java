@@ -9,6 +9,7 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,8 @@ public class StepDefinitions {
         lastReservation = null;
     }
 
-
+@Value("${endpoint.url}")
+String url;
 
     @Given("the booking application is up and running and ready to process data")
     public void theBookingApplicationIsUpAndRunningAndReadyToProcessData() {
@@ -71,6 +73,7 @@ public class StepDefinitions {
         ResponseEntity<Reservation> reservationResponse =  restTemplate.postForEntity("http://localhost:8080/api/reservation", reservation, Reservation.class);
         httpStatus = reservationResponse.getStatusCode();
         lastReservation = reservationResponse.getBody();
+        Assertions.assertEquals(reservationResponse.getStatusCode(), HttpStatus.CREATED);
     }
 
     @Then("The customer receives {string}")
@@ -86,7 +89,7 @@ public class StepDefinitions {
 
     @When("new user is register with {string}")
     public void newUserIsRegisterWith(String userId) {
-        ResponseEntity<Users> usersResponse =  restTemplate.postForEntity("http://localhost:8080/api/users", new Users(Long.valueOf(userId)), Users.class);
+        ResponseEntity<Users> usersResponse =  restTemplate.postForEntity("http://"+url+"/api/users", new Users(Long.valueOf(userId)), Users.class);
         Assertions.assertEquals(usersResponse.getStatusCode(), HttpStatus.CREATED);
     }
 }
